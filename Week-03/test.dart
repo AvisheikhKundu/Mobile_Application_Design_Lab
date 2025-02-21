@@ -5,7 +5,7 @@ class Student {
   String id;
   List<String> _courses = [];
   List<String> _droppedCourses = [];
-  Map<String, Map<String, double>> _grades = {}; // Stores course percentage & credit hours
+  Map<String, Map<String, double>> _grades = {}; // Stores course marks & credit hours
   double _gpa = 0.0;
 
   static const Map<String, double> _availableCourses = {
@@ -47,7 +47,7 @@ class Student {
   void updateGPA(Map<String, double> grades) {
     _grades.clear();
     for (var course in grades.keys) {
-      _grades[course] = {"percentage": grades[course]!, "credit": _availableCourses[course]!};
+      _grades[course] = {"marks": grades[course]!, "credit": _availableCourses[course]!};
     }
     _calculateGPA();
     
@@ -67,9 +67,9 @@ class Student {
     double weightedGPA = 0.0;
 
     for (var course in _grades.keys) {
-      double percentage = _grades[course]!['percentage']!;
+      double marks = _grades[course]!['marks']!;
       double credit = _grades[course]!['credit']!;
-      double gradePoint = _getGradePoint(percentage);
+      double gradePoint = _getGradePoint(marks);
       _grades[course]!['gpa'] = gradePoint; // Store each course GPA
       weightedGPA += gradePoint * credit;
       totalCredits += credit;
@@ -78,16 +78,16 @@ class Student {
     _gpa = totalCredits > 0 ? weightedGPA / totalCredits : 0.0;
   }
 
-  double _getGradePoint(double percentage) {
-    if (percentage >= 80) return 4.00;
-    if (percentage >= 75) return 3.75;
-    if (percentage >= 70) return 3.50;
-    if (percentage >= 65) return 3.25;
-    if (percentage >= 60) return 3.00;
-    if (percentage >= 55) return 2.75;
-    if (percentage >= 50) return 2.50;
-    if (percentage >= 45) return 2.25;
-    if (percentage >= 40) return 2.00;
+  double _getGradePoint(double marks) {
+    if (marks >= 80) return 4.00;
+    if (marks >= 75) return 3.75;
+    if (marks >= 70) return 3.50;
+    if (marks >= 65) return 3.25;
+    if (marks >= 60) return 3.00;
+    if (marks >= 55) return 2.75;
+    if (marks >= 50) return 2.50;
+    if (marks >= 45) return 2.25;
+    if (marks >= 40) return 2.00;
     return 0.00;
   }
 
@@ -119,16 +119,16 @@ void main() {
   Student student = Student(name, id);
 
   while (true) {
-    print("\n📌 Dashboard");
-    print("1️⃣  View Available Courses");
-    print("2️⃣  Enroll in a Course");
-    print("3️⃣  Drop a Course");
-    print("4️⃣  View Enrolled Courses");
-    print("5️⃣  Calculate CGPA");
-    print("6️⃣  View Current GPA");
-    print("7️⃣  View Student Information");
-    print("8️⃣  Exit");
-    stdout.write("👉 Choose an option: ");
+    print("\n📌  Student Portal \n");
+    print("1.  View Available Courses");
+    print("2.  Enroll in a Course");
+    print("3.  Drop a Course");
+    print("4.  View Enrolled Courses");
+    print("5.  Calculate CGPA");
+    print("6.  View Current GPA");
+    print("7.  View Student Information");
+    print("8.  Exit");
+    stdout.write("Choose an option 👉  : ");
     String? choice = stdin.readLineSync();
 
     switch (choice) {
@@ -158,11 +158,11 @@ void main() {
         }
         Map<String, double> grades = {};
         for (var course in student.enrolledCourses) {
-          stdout.write("📊 Enter percentage for $course: ");
+          stdout.write("📊 Enter marks for $course: ");
           String? gradeInput = stdin.readLineSync();
-          double? percentage = double.tryParse(gradeInput ?? "");
-          if (percentage != null) {
-            grades[course] = percentage;
+          double? marks = double.tryParse(gradeInput ?? "");
+          if (marks != null) {
+            grades[course] = marks;
           }
         }
         student.updateGPA(grades);
