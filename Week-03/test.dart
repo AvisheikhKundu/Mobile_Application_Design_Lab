@@ -6,7 +6,6 @@ class Student {
   List<String> _courses = [];
   double _gpa = 0.0;
 
-  // Private available courses
   static const List<String> _availableCourses = [
     "Mobile Application Design",
     "Artificial Intelligence",
@@ -17,16 +16,12 @@ class Student {
 
   Student(this.name, this.id);
 
-  // Getter for available courses (Encapsulation applied)
   static List<String> getAvailableCourses() => List.unmodifiable(_availableCourses);
 
-  // Getter for enrolled courses
   List<String> get enrolledCourses => List.unmodifiable(_courses);
 
-  // Getter for GPA
   double getGPA() => _gpa;
 
-  // Enroll in a course
   void enrollCourse(String course) {
     if (!_courses.contains(course) && _availableCourses.contains(course)) {
       _courses.add(course);
@@ -36,7 +31,6 @@ class Student {
     }
   }
 
-  // Drop a course
   void dropCourse(String course) {
     if (_courses.contains(course)) {
       _courses.remove(course);
@@ -46,13 +40,11 @@ class Student {
     }
   }
 
-  // Update GPA after entering grades
   void updateGPA(Map<String, double> grades) {
     _gpa = _calculateGPA(grades);
     print("📊 Updated GPA: $_gpa");
   }
 
-  // Private method for GPA calculation (Encapsulation)
   double _calculateGPA(Map<String, double> grades) {
     if (grades.isEmpty) {
       return 0.0;
@@ -64,7 +56,6 @@ class Student {
     return total / grades.length;
   }
 
-  // Private method for grade point conversion
   double _getGradePoint(double percentage) {
     if (percentage >= 80) return 4.00;
     if (percentage >= 75) return 3.75;
@@ -141,6 +132,7 @@ void main() {
           }
         }
         student.updateGPA(grades);
+        print("🎓 Your CGPA has been updated and is now: ${student.getGPA()}");
         break;
       case '8':
         print("🎓 Current GPA: ${student.getGPA()}");
