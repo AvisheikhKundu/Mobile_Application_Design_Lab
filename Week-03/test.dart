@@ -1,3 +1,10 @@
+
+// # Author: Avisheikh Kundu
+// # Project: Student Management System
+// # Date: 21-02-2025
+// # Version: 1.0
+// # Description: A simple student management system that allows students to enroll in courses, drop courses, calculate GPA, and view student information.  
+
 import 'dart:io';
 
 class Student {
@@ -17,9 +24,9 @@ class Student {
   };
 
   Student(this.name, this.id);
-
+  
   static Map<String, double> getAvailableCourses() => Map.unmodifiable(_availableCourses);
-
+  
   List<String> get enrolledCourses => List.unmodifiable(_courses);
   List<String> get droppedCourses => List.unmodifiable(_droppedCourses);
   double getGPA() => _gpa;
