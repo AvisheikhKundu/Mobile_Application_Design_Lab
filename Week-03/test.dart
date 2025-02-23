@@ -70,6 +70,7 @@ class Student {
       _gpa = 0.0;
       return;
     }
+    
     double totalCredits = 0.0;
     double weightedGPA = 0.0;
 
